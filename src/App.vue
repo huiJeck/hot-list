@@ -157,12 +157,7 @@ export default {
     .layout {
         width: 600px;
         margin: auto;
-
-        ::v-deep .ivu-layout-content {
-            /* transform: scale(1.2); */
-        }
     }
-
     ::v-deep .ivu-tabs-nav-scroll {
         left: 50%;
         width: 600px;
