@@ -3,11 +3,11 @@
     <Row>
       <Col  v-for="(item, index) in newList" :key="index">
     <div>
-      <Card @click="handleGo(item.mobilUrl)">
+      <Card @click="handleGo(isPhone ? item.mobilUrl : item.url)" dis-hover target>
           <Text class="hot-style "> <Badge type="info" :count="index+1" />  热度：{{ item.hot }}</Text>
         <Title :level="6" class="title-style">{{ item.title }}</title>
         <Row>
-          <Col flex="1">
+          <Col flex="120px">
           <Image :src="item.pic" fit="contain" :initial-index="item.index" class="image-style ivu-mt-8" v-if="item.desc" />
           </col>
           <Col flex="2">
@@ -27,6 +27,8 @@
 </template>
 <script>
 import { baiduNews } from './../../api/index.js'
+import { useWindowSize } from '@vueuse/core'
+
 export default {
   name: 'i-news',
   computed: {
@@ -39,11 +41,14 @@ export default {
       isEditing: false,
       newList: [],
       aiText: '',
-      result: ''
+      result: '',
+      isPhone: false
     }
   },
   mounted() {
     this.getInit()
+    const { width } = useWindowSize()
+    this.isPhone = width < 1000 ? true : false
   },
   methods: {
     getInit() {
@@ -67,6 +72,7 @@ export default {
 <style scoped>
 .ivu-col{
   width: 100%;
+  cursor: pointer;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -87,6 +93,9 @@ export default {
 }
 ::v-deep .ivu-image-img {
   max-height: 80px;
+}
+::v-deep .ivu-card-body {
+  padding: 12px 0;
 }
 .title-style {
   margin: 0px;

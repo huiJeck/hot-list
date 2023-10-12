@@ -11,7 +11,7 @@ import App from './App.vue'
 import 'view-ui-plus/dist/styles/viewuiplus.css'
 
 // 导入自定义样式文件
-import './assets/main.css'
+// import './assets/main.css'
 
 // 创建应用程序实例
 const app = createApp(App)

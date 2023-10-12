@@ -1,12 +1,12 @@
 <template>
     <div class="layout">
-        <Alert type="warning" class="alert-style">实时新闻热榜，建议收藏网址，以便快速了解</Alert>
+        <!-- <Alert type="warning" class="alert-style">实时新闻热榜，建议收藏网址，以便快速了解</Alert> -->
         <Tabs size="small" :value="tabs" @on-click="handleTab">
             <TabPane label="新闻热榜"></TabPane>
             <TabPane label="电影热榜"></TabPane>
             <!-- <TabPane label="壁纸"></TabPane> -->
             <TabPane label="星座运势"></TabPane>
-             <TabPane label="数独"></TabPane>
+            <!-- <TabPane label="数独"></TabPane> -->
         </Tabs>
 
         <div v-if="tabs === 0">
@@ -39,20 +39,16 @@
         <div v-if="tabs === 2">
             <star></star>
         </div>
-        
-        <div v-if="tabs === 3" style="height: 100%">
-            <!-- <star></star> -->
-            <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>
-            
-        </div>
+
+        <!-- <div v-if="tabs === 3" style="height: 100%">
+            <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>   
+        </div> -->
         <!-- <GlobalFooter :links="links" :copyright="copyright" /> -->
         <div class="bottom-height"></div>
 
     </div>
 
     <!-- <grid-css></grid-css> -->
-    <!-- 这是git提交测试的 -->
-
 </template>
 <script>
 // import textEdit from './components/text-edit/index.vue'
@@ -64,8 +60,8 @@ import news from './components/news/index.vue'
 import douyin from './components/news/douyin.vue'
 import doubanMovie from './components/news/douban.vue'
 // import weather from './components/weather/index.vue'
-import imgList from './components/img-list/index.vue'
-import gridCss from './components/img-list/gridCss.vue'
+// import imgList from './components/img-list/index.vue'
+// import gridCss from './components/img-list/gridCss.vue'
 import star from './components/star/index.vue'
 // import chart from './components/chart/index.vue'
 export default {
@@ -73,8 +69,6 @@ export default {
         news,
         douyin,
         doubanMovie,
-        imgList,
-        gridCss,
         star
     },
     data() {
@@ -133,27 +127,27 @@ export default {
                     icon: 'ios-navigate'
                 }
             ],
-            links: [
-                    {
-                        key: '数独游戏',
-                        title: '数独游戏',
-                        href: 'https://zh888.gitee.io/number-game/',
-                        blankTarget: false
-                    },
-                    {
-                        key: 'github',
-                        icon: 'logo-github',
-                        href: '',
-                        blankTarget: false
-                    },
-                    {
-                        key: '宇宙行星',
-                        title: '宇宙行星',
-                        href: 'https://zh888.gitee.io/number-game/star',
-                        blankTarget: false
-                    }
-                ],
-                copyright: 'Copyright © 2022 View Design All Rights Reserved'
+            // links: [
+            //         {
+            //             key: '数独游戏',
+            //             title: '数独游戏',
+            //             href: 'https://zh888.gitee.io/number-game/',
+            //             blankTarget: false
+            //         },
+            //         {
+            //             key: 'github',
+            //             icon: 'logo-github',
+            //             href: '',
+            //             blankTarget: false
+            //         },
+            //         {
+            //             key: '宇宙行星',
+            //             title: '宇宙行星',
+            //             href: 'https://zh888.gitee.io/number-game/star',
+            //             blankTarget: false
+            //         }
+            //     ],
+            //     copyright: 'Copyright © 2022 View Design All Rights Reserved'
         };
     },
     methods: {
@@ -193,21 +187,24 @@ export default {
     background-color: white;
     border-top: solid 1px #ececec;
 }
+
 @media only screen and (min-width: 1200px) {
     .layout {
-        width:800px;
+        width: 600px;
         margin: auto;
-        ::v-deep .ivu-layout-content{
-              /* transform: scale(1.2); */
+
+        ::v-deep .ivu-layout-content {
+            /* transform: scale(1.2); */
         }
     }
+
     ::v-deep .ivu-tabs-nav-scroll {
-    left: 50%;
-    width: 800px;
-    transform: translateX(-50%)
-   
+        left: 50%;
+        width: 600px;
+        transform: translateX(-50%)
+    }
 }
-}
+
 ::v-deep .ivu-tabs-tab {
     font-weight: bold;
     font-size: 16px !important;
@@ -216,10 +213,12 @@ export default {
 ::v-deep .ivu-menu-item {
     padding: 0 10px !important;
 }
+
 ::v-deep .ivu-card-bordered {
     border: none;
     border-bottom: solid 1px #ececec;
 }
+
 .bottom-height {
     height: 60px;
 }
@@ -272,5 +271,4 @@ export default {
 
 .dev-run-preview .dev-run-preview-edit {
     display: none
-}
-</style>
+}</style>

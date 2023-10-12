@@ -3,7 +3,7 @@
     <Row>
       <Col  v-for="(item, index) in newList" :key="index">
       <div >
-        <Card @click="handleGo(item.mobilUrl)">
+        <Card @click="handleGo(item.mobilUrl)"  dis-hover target>
           <Title :level="6">{{ item.title }}</title>
           <div class="des-style"><Badge type="info" :count="index+1" /> 热度：{{ item.hot || 'hot' }}</div>
         </Card>
@@ -19,6 +19,7 @@
 </template>
 <script>
 import { baiduNews } from '../../api/index.js'
+import { useWindowSize } from '@vueuse/core'
 export default {
   name: 'i-news',
   props:['type'],
@@ -31,11 +32,13 @@ export default {
       isEditing: false,
       newList: [],
       aiText: '',
-      result: ''
+      result: '',
+      isPhone: false
     }
   },
   mounted() {
-   
+    const { width } = useWindowSize()
+    this.isPhone = width < 1000 ? true : false
     this.getInit()
   },
   methods: {
@@ -85,5 +88,8 @@ export default {
   margin: auto;
   margin-top: 20%;
   margin-left: 30%;
+}
+::v-deep .ivu-card-body {
+  padding: 12px 0;
 }
 </style>

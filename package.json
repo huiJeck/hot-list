@@ -7,6 +7,7 @@
     "preview": "vite preview --port 4173"
   },
   "dependencies": {
+    "@vueuse/core": "^10.5.0",
     "axios": "^0.27.0",
     "guess": "^1.0.2",
     "sass": "^1.63.6",

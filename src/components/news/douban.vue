@@ -3,9 +3,9 @@
     <Row>
       <Col  v-for="(item, index) in newList" :key="index">
     <div >
-      <Card @click="handleGo(item.info.url)">
-        <Badge class="title-index" type="info" :text="`评分第${index + 1}名`" /> 
-        <Title :level="5" class="title-style">{{ item.title }} </title>  
+      <Card @click="handleGo(item.info.url)"  dis-hover target>
+        
+        <Title :level="6" class="title-style"><Badge class="title-index" type="info" :text="`评分第${index + 1}名`" /> {{ item.title }} </title>  
         <Row>
           <Col flex="1">
           <img :src="item.info.imgurl" referrer="no-referrer" class="image-style ivu-mt-8"  v-if="item.info.imgurl" />
@@ -93,7 +93,7 @@ export default {
   margin: 10px;
 }
 .title-index {
-  display:inline
+  margin: auto;
 }
 .image-style {
   width: 100%;
