@@ -1,0 +1,5 @@
+run = "npm i && npm run dev"
+
+[deployment]
+build = "npm i -f && npm run build"
+run = "npm run preview"
