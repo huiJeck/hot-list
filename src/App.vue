@@ -4,7 +4,6 @@
         <Tabs size="small" :value="tabs" @on-click="handleTab">
             <TabPane label="新闻热榜"></TabPane>
             <TabPane label="电影热榜"></TabPane>
-            <!-- <TabPane label="壁纸"></TabPane> -->
             <TabPane label="星座运势"></TabPane>
             <!-- <TabPane label="数独"></TabPane> -->
         </Tabs>
@@ -32,10 +31,6 @@
             <douban-movie></douban-movie>
         </div>
 
-        <!-- <div v-if="tabs === 2">
-            <grid-css></grid-css>
-        </div> -->
-
         <div v-if="tabs === 2">
             <star></star>
         </div>
@@ -43,25 +38,18 @@
         <!-- <div v-if="tabs === 3" style="height: 100%">
             <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>   
         </div> -->
-        <!-- <GlobalFooter :links="links" :copyright="copyright" /> -->
         <div class="bottom-height"></div>
-
     </div>
 
-    <!-- <grid-css></grid-css> -->
 </template>
 <script>
-// import textEdit from './components/text-edit/index.vue'
 // import sayList from './components/say-list/index.vue'
 // import Form from './components/form/index.vue'
 // import login from './components/login/index.vue'
-// import menu from './components/menu/index.vue'
 import news from './components/news/index.vue'
 import douyin from './components/news/douyin.vue'
 import doubanMovie from './components/news/douban.vue'
-// import weather from './components/weather/index.vue'
 // import imgList from './components/img-list/index.vue'
-// import gridCss from './components/img-list/gridCss.vue'
 import star from './components/star/index.vue'
 // import chart from './components/chart/index.vue'
 export default {
@@ -126,28 +114,7 @@ export default {
                     label: '36氪',
                     icon: 'ios-navigate'
                 }
-            ],
-            // links: [
-            //         {
-            //             key: '数独游戏',
-            //             title: '数独游戏',
-            //             href: 'https://zh888.gitee.io/number-game/',
-            //             blankTarget: false
-            //         },
-            //         {
-            //             key: 'github',
-            //             icon: 'logo-github',
-            //             href: '',
-            //             blankTarget: false
-            //         },
-            //         {
-            //             key: '宇宙行星',
-            //             title: '宇宙行星',
-            //             href: 'https://zh888.gitee.io/number-game/star',
-            //             blankTarget: false
-            //         }
-            //     ],
-            //     copyright: 'Copyright © 2022 View Design All Rights Reserved'
+            ]
         };
     },
     methods: {
@@ -160,9 +127,6 @@ export default {
 </script>
 <style scoped>
 .layout {
-    /* position: absolute;
-    left: 0;
-    top: 0; */
     width: 100%;
     position: relative;
 }
