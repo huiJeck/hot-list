@@ -95,7 +95,7 @@ export default {
   max-height: 80px;
 }
 ::v-deep .ivu-card-body {
-  padding: 12px 0;
+  padding: 12px 8px;
 }
 .title-style {
   margin: 0px;

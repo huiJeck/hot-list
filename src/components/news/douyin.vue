@@ -90,6 +90,6 @@ export default {
   margin-left: 30%;
 }
 ::v-deep .ivu-card-body {
-  padding: 12px 0;
+  padding: 12px 8px;
 }
 </style>

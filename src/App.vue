@@ -5,7 +5,7 @@
             <TabPane label="新闻热榜"></TabPane>
             <TabPane label="电影热榜"></TabPane>
             <TabPane label="星座运势"></TabPane>
-            <!-- <TabPane label="数独"></TabPane> -->
+            <TabPane label="敬请期待"></TabPane>
         </Tabs>
 
         <div v-if="tabs === 0">
@@ -35,9 +35,11 @@
             <star></star>
         </div>
 
-        <!-- <div v-if="tabs === 3" style="height: 100%">
-            <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>   
-        </div> -->
+        <div v-if="tabs === 3" style="height: 100%">
+            <!-- <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>    -->
+            <Result class="result" type="warning" title="敬请期待" desc="正在开发更多实用有趣的功能中，咨询可加v：844271163">
+            </Result>
+        </div>
         <div class="bottom-height"></div>
     </div>
 
@@ -146,7 +148,6 @@ export default {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 50px;
     z-index: 22222;
     background-color: white;
     border-top: solid 1px #ececec;
@@ -235,4 +236,9 @@ export default {
 
 .dev-run-preview .dev-run-preview-edit {
     display: none
-}</style>
+}
+.result {
+  margin-top: 30%;
+}
+
+</style>
