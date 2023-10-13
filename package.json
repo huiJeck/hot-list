@@ -4,12 +4,14 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 4173"
+    "preview": "vite preview --port 4173",
+    "fx": "vite build --mode fx"
   },
   "dependencies": {
     "@vueuse/core": "^10.5.0",
     "axios": "^0.27.0",
     "guess": "^1.0.2",
+    "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.63.6",
     "view-ui-plus": "^1.3.9",
     "vue": "^3.2.37"
