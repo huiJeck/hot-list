@@ -1,10 +1,3 @@
-## 推荐的IDE设置
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## 自定义配置
-
-请参阅 [[Vite配置参考](https://vitejs.dev/config/).
 
 ## 项目设置
 
@@ -23,3 +16,25 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### 说明
+这是个人为了方便查看各平台实时热榜新闻而开发，支持pc端和移动端、指在达到10分钟了解所有热点时事资讯，过滤掉无效资讯。
+
+### 预览
+地址：https://zh888.gitee.io/this-app/
+
+### 截图
+
+#### 百度top榜
+![image](https://github.com/huiJeck/hot-list/assets/22268904/b6e63a5d-27d3-466d-a888-d596611fed0a)
+
+#### 抖音top榜
+![image](https://github.com/huiJeck/hot-list/assets/22268904/da7a44a2-48a8-4de4-94bd-ab079c602b54)
+
+#### 豆瓣电影top榜
+![image](https://github.com/huiJeck/hot-list/assets/22268904/90a2508d-0819-4eb0-82df-7c55f2e801ae)
+
+#### 星座运势查询
+![image](https://github.com/huiJeck/hot-list/assets/22268904/0dfdea8a-35a2-4381-811c-7879433930e3)
+
+
