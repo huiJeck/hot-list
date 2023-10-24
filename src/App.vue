@@ -1,6 +1,5 @@
 <template>
     <div class="layout">
-        <!-- <Alert type="warning" class="alert-style">实时新闻热榜，建议收藏网址，以便快速了解</Alert> -->
         <Tabs size="small" :value="tabs" @on-click="handleTab">
             <TabPane label="新闻热榜"></TabPane>
             <TabPane label="电影热榜"></TabPane>
@@ -36,7 +35,6 @@
         </div>
 
         <div v-if="tabs === 3" style="height: 100%">
-            <!-- <iframe src="https://zh888.gitee.io/number-game/" frameborder="0" width="100%" height="800px"></iframe>    -->
             <Result class="result" type="warning" title="敬请期待" desc="正在开发更多实用有趣的功能中，咨询可加v：844271163">
             </Result>
         </div>
@@ -45,15 +43,11 @@
 
 </template>
 <script>
-// import sayList from './components/say-list/index.vue'
-// import Form from './components/form/index.vue'
-// import login from './components/login/index.vue'
+
 import news from './components/news/index.vue'
 import douyin from './components/news/douyin.vue'
 import doubanMovie from './components/news/douban.vue'
-// import imgList from './components/img-list/index.vue'
 import star from './components/star/index.vue'
-// import chart from './components/chart/index.vue'
 export default {
     components: {
         news,
@@ -64,7 +58,7 @@ export default {
     data() {
         return {
             tabs: 0,
-            name: '张三a',
+            name: '张三',
             isCollapsed: false,
             active: '1-1',
             menuList: [
