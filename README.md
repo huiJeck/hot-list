@@ -21,7 +21,7 @@ npm run build
 这是个人为了方便查看各平台实时热榜新闻而开发，支持pc端和移动端、指在达到10分钟了解所有热点时事资讯，过滤掉无效资讯。
 
 ### 预览
-地址：https://zh888.gitee.io/this-app/
+地址：https://6810910fb2d2ace012576261--effulgent-pithivier-b3c33f.netlify.app/
 
 ### 截图
 
