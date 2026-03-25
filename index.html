@@ -1,16 +1,631 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="referrer" content="never">
-    <title>实时资讯-热榜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>全网热榜咨询 - Top20</title>
+    <style>
+      :root {
+        --bg-1: #0f172a;
+        --bg-2: #111827;
+        --card: rgba(17, 25, 40, 0.72);
+        --card-border: rgba(148, 163, 184, 0.22);
+        --text: #e2e8f0;
+        --sub: #94a3b8;
+        --brand: #22d3ee;
+        --brand-2: #38bdf8;
+        --ok: #34d399;
+        --warn: #f59e0b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        color: var(--text);
+        background: radial-gradient(1200px 600px at 15% -10%, #1d4ed8 0%, transparent 45%),
+          radial-gradient(1200px 600px at 110% 0%, #0891b2 0%, transparent 42%),
+          linear-gradient(135deg, var(--bg-1), var(--bg-2));
+        min-height: 100vh;
+        min-height: 100dvh;
+      }
+
+      .wrap {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding-top: max(28px, env(safe-area-inset-top, 0px));
+        padding-right: max(18px, env(safe-area-inset-right, 0px));
+        padding-bottom: max(32px, env(safe-area-inset-bottom, 0px));
+        padding-left: max(18px, env(safe-area-inset-left, 0px));
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 30px;
+        letter-spacing: 0.5px;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        color: var(--sub);
+        font-size: 14px;
+      }
+
+      .platform-bar {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+
+      .platform-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #cbd5e1;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .platform-label::before {
+        content: '';
+        width: 4px;
+        height: 16px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, var(--brand), var(--brand-2));
+        box-shadow: 0 0 12px rgba(34, 211, 238, 0.45);
+      }
+
+      .platform-select-shell {
+        position: relative;
+        flex: 1;
+        min-width: 0;
+        max-width: 340px;
+        padding: 1px;
+        border-radius: 14px;
+        background: linear-gradient(
+          135deg,
+          rgba(34, 211, 238, 0.55),
+          rgba(56, 189, 248, 0.22) 45%,
+          rgba(148, 163, 184, 0.18)
+        );
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+        transition: box-shadow 0.25s ease, transform 0.2s ease;
+      }
+
+      .platform-select-shell:hover {
+        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(56, 189, 248, 0.12),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      }
+
+      .platform-select-shell:focus-within {
+        box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.22), 0 8px 32px rgba(8, 145, 178, 0.15),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+
+      .platform-select {
+        --sel-bg: linear-gradient(165deg, rgba(30, 41, 59, 0.96) 0%, rgba(15, 23, 42, 0.99) 100%);
+        --sel-bg-hover: linear-gradient(165deg, rgba(51, 65, 85, 0.92) 0%, rgba(15, 23, 42, 0.98) 100%);
+        --sel-bg-focus: linear-gradient(165deg, rgba(30, 58, 78, 0.95) 0%, rgba(15, 23, 42, 1) 100%);
+        --sel-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5 8l5 5 5-5' stroke='%2367e8f9' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        width: 100%;
+        margin: 0;
+        border: none;
+        border-radius: 13px;
+        color: var(--text);
+        padding: 12px 44px 12px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.35;
+        letter-spacing: 0.01em;
+        outline: none;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        color-scheme: dark;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        transition: background 0.2s ease, color 0.2s ease;
+        background-color: #0f172a;
+        background-image: var(--sel-chevron), var(--sel-bg);
+        background-repeat: no-repeat, no-repeat;
+        background-position: right 14px center, 0 0;
+        background-size: 18px, 100% 100%;
+      }
+
+      .platform-select:hover {
+        background-image: var(--sel-chevron), var(--sel-bg-hover);
+      }
+
+      .platform-select:focus {
+        background-image: var(--sel-chevron), var(--sel-bg-focus);
+      }
+
+      .platform-select option {
+        background: #1e293b;
+        color: #f1f5f9;
+        padding: 10px;
+        font-weight: 500;
+      }
+
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--card-border);
+        backdrop-filter: blur(8px);
+        border-radius: 16px;
+        padding: 14px;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+      }
+
+      .meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--sub);
+        font-size: 13px;
+        margin: 6px 2px 10px;
+      }
+
+      .list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .item {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 12px;
+        background: rgba(15, 23, 42, 0.48);
+        transition: all 0.2s ease;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(56, 189, 248, 0.25);
+      }
+
+      .item:hover {
+        border-color: rgba(56, 189, 248, 0.62);
+        transform: translateY(-2px);
+      }
+
+      .item:active {
+        transform: scale(0.99);
+      }
+
+      .rank {
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: #0f172a;
+        background: #cbd5e1;
+      }
+
+      .rank.top3 {
+        background: linear-gradient(135deg, #f59e0b, #f97316);
+        color: #fff;
+      }
+
+      .content {
+        min-width: 0;
+        flex: 1;
+      }
+
+      .headline {
+        margin: 0 0 6px;
+        font-size: 15px;
+        line-height: 1.35;
+      }
+
+      .headline a {
+        color: #e6f4ff;
+        text-decoration: none;
+      }
+
+      .headline a:hover {
+        color: #7dd3fc;
+        text-decoration: underline;
+      }
+
+      .desc {
+        color: var(--sub);
+        font-size: 12px;
+        margin: 0 0 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12px;
+        color: #9ca3af;
+      }
+
+      .hot {
+        color: var(--warn);
+      }
+
+      .empty,
+      .loading,
+      .error {
+        text-align: center;
+        padding: 32px 10px;
+        color: var(--sub);
+      }
+
+      .error {
+        color: #fca5a5;
+      }
+
+      .status-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 6px;
+        background: var(--ok);
+        box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
+      }
+
+      @media (max-width: 920px) {
+        .list {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          flex-direction: column;
+        }
+
+        .platform-select-shell {
+          max-width: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .wrap {
+          padding-top: max(16px, env(safe-area-inset-top, 0px));
+          padding-right: max(12px, env(safe-area-inset-right, 0px));
+          padding-bottom: max(24px, env(safe-area-inset-bottom, 0px));
+          padding-left: max(12px, env(safe-area-inset-left, 0px));
+        }
+
+        .title {
+          font-size: 22px;
+        }
+
+        .subtitle {
+          font-size: 13px;
+          line-height: 1.5;
+        }
+
+        .platform-bar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .platform-select-shell {
+          max-width: none;
+          width: 100%;
+        }
+
+        .platform-select {
+          font-size: 16px;
+          min-height: 48px;
+          padding-top: 13px;
+          padding-bottom: 13px;
+        }
+
+        .panel {
+          padding: 10px;
+          border-radius: 14px;
+        }
+
+        .meta {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 6px;
+          font-size: 12px;
+        }
+
+        .headline {
+          font-size: 14px;
+        }
+
+        .desc {
+          white-space: normal;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          line-clamp: 2;
+          overflow: hidden;
+        }
+
+        .item {
+          padding: 10px;
+        }
+
+        .rank {
+          width: 28px;
+          min-width: 28px;
+          height: 28px;
+          font-size: 13px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-    <!-- 统计小组件 -->
-    <script id="_wauzpx">var _wau = _wau || []; _wau.push(["tab", "gejuktsqbp", "zpx", "right-middle"]);</script><script async src="//waust.at/t.js"></script>
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <h1 class="title">全网热榜咨询</h1>
+          <div class="subtitle">聚合各大平台 Top20，点击标题即可跳转官方详情页。</div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="platform-bar">
+          <label for="platformSelect" class="platform-label">榜单类型</label>
+          <div class="platform-select-shell">
+            <select id="platformSelect" class="platform-select" aria-label="选择榜单平台"></select>
+          </div>
+        </div>
+        <div class="meta">
+          <div><span class="status-dot"></span><span id="platformTitle">-</span></div>
+          <div id="updateTime">更新时间：-</div>
+        </div>
+        <div id="listContainer" class="list"></div>
+        <div id="state" class="loading">加载中...</div>
+      </section>
+    </div>
+
+    <script>
+      const API_BASE = 'https://api.suxun.site/api/hotlist?id='
+      const TOP_N = 20
+
+      const platforms = [
+        { id: 'baidu', name: '百度' },
+        { id: 'douyin', name: '抖音' },
+        { id: 'toutiao', name: '今日头条' },
+        { id: 'weibo', name: '微博' },
+        { id: 'zhihu', name: '知乎' },
+        { id: 'bilibili', name: 'B站' },
+        { id: 'juejin', name: '掘金' },
+        { id: 'csdn', name: 'CSDN' },
+        { id: '36kr', name: '36Kr' },
+        { id: 'v2ex', name: 'V2EX' }
+      ]
+
+      const state = {
+        current: platforms[0].id,
+        loading: false,
+        error: '',
+        dataMap: new Map()
+      }
+
+      const platformSelectEl = document.getElementById('platformSelect')
+      const listEl = document.getElementById('listContainer')
+      const stateEl = document.getElementById('state')
+      const platformTitleEl = document.getElementById('platformTitle')
+      const updateTimeEl = document.getElementById('updateTime')
+
+      function setLoading(v) {
+        state.loading = v
+        stateEl.style.display = v || state.error || getVisibleList().length === 0 ? 'block' : 'none'
+      }
+
+      function setError(msg) {
+        state.error = msg
+        render()
+      }
+
+      function normalize(res, platformId) {
+        const arr = Array.isArray(res.data) ? res.data : []
+        return {
+          title: res.title || platforms.find((p) => p.id === platformId)?.name || platformId,
+          time: res.time || '',
+          items: arr.slice(0, TOP_N).map((x, i) => ({
+            rank: Number(x.index) || i + 1,
+            title: x.title || x.desc || '无标题',
+            desc: x.desc || '',
+            hot: x.hot ?? '',
+            url: x.url || '',
+            mobileUrl: x.mobileUrl || '',
+            jumpUrl: buildNoLoginUrl(platformId, x)
+          }))
+        }
+      }
+
+      function buildNoLoginUrl(platformId, item) {
+        const title = encodeURIComponent(item?.title || item?.desc || '')
+        if (item?.mobileUrl) return item.mobileUrl
+        if (item?.url) return item.url
+
+        const map = {
+          weibo: `https://s.weibo.com/weibo?q=${title}`,
+          zhihu: `https://www.zhihu.com/search?type=content&q=${title}`,
+          bilibili: `https://search.bilibili.com/all?keyword=${title}`,
+          douyin: `https://www.douyin.com/search/${title}`,
+          baidu: `https://www.baidu.com/s?wd=${title}`,
+          toutiao: `https://so.toutiao.com/search?keyword=${title}`,
+          juejin: `https://juejin.cn/search?query=${title}`,
+          csdn: `https://so.csdn.net/so/search?q=${title}`,
+          '36kr': `https://www.36kr.com/search/articles/${title}`,
+          v2ex: `https://www.google.com/search?q=site:v2ex.com+${title}`
+        }
+        return map[platformId] || '#'
+      }
+
+      async function fetchPlatform(platformId, force = false) {
+        if (!force && state.dataMap.has(platformId)) return
+        setError('')
+        setLoading(true)
+        try {
+          const controller = new AbortController()
+          const timer = setTimeout(() => controller.abort(), 10000)
+          const resp = await fetch(`${API_BASE}${platformId}`, { signal: controller.signal })
+          clearTimeout(timer)
+          if (!resp.ok) throw new Error(`接口请求失败（${resp.status}）`)
+          const json = await resp.json()
+          if (String(json.code) !== '200' || !Array.isArray(json.data)) throw new Error(json.msg || '接口数据异常')
+          state.dataMap.set(platformId, normalize(json, platformId))
+        } catch (e) {
+          setError(`加载失败：${e.message || '网络异常'}，请稍后重试。`)
+        } finally {
+          setLoading(false)
+          render()
+        }
+      }
+
+      function getVisibleList() {
+        const cur = state.dataMap.get(state.current)
+        if (!cur) return []
+        return cur.items
+      }
+
+      function renderPlatformSelect() {
+        platformSelectEl.innerHTML = platforms
+          .map(
+            (p) =>
+              `<option value="${escapeAttr(p.id)}">${escapeHtml(p.name)} · Top${TOP_N}</option>`
+          )
+          .join('')
+        platformSelectEl.value = state.current
+      }
+
+      function renderList() {
+        const cur = state.dataMap.get(state.current)
+        if (!cur) {
+          listEl.innerHTML = ''
+          return
+        }
+        const list = getVisibleList()
+        if (list.length === 0) {
+          listEl.innerHTML = ''
+          return
+        }
+        listEl.innerHTML = list
+          .map((x) => {
+            const safeHref = escapeAttr(x.jumpUrl)
+            const safeDataUrl = escapeAttr(x.jumpUrl)
+            const hotText = x.hot !== '' ? `热度：${escapeHtml(String(x.hot))}` : '热度：--'
+            return `
+            <article class="item" data-url="${safeDataUrl}">
+              <div class="rank ${x.rank <= 3 ? 'top3' : ''}">${x.rank}</div>
+              <div class="content">
+                <h3 class="headline"><a href="${safeHref}" target="_blank" rel="noopener noreferrer">${escapeHtml(x.title)}</a></h3>
+                <p class="desc">${escapeHtml(x.desc || '点击标题查看官方详情')}</p>
+                <div class="foot">
+                  <span class="hot">${hotText}</span>
+                  <span>免登录直达</span>
+                </div>
+              </div>
+            </article>
+          `
+          })
+          .join('')
+      }
+
+      function renderState() {
+        if (state.loading) {
+          stateEl.className = 'loading'
+          stateEl.textContent = '加载中...'
+          stateEl.style.display = 'block'
+          return
+        }
+        if (state.error) {
+          stateEl.className = 'error'
+          stateEl.textContent = state.error
+          stateEl.style.display = 'block'
+          return
+        }
+        if (getVisibleList().length === 0) {
+          stateEl.className = 'empty'
+          stateEl.textContent = '暂无数据。'
+          stateEl.style.display = 'block'
+          return
+        }
+        stateEl.style.display = 'none'
+      }
+
+      function renderMeta() {
+        const cur = state.dataMap.get(state.current)
+        platformTitleEl.textContent = cur ? `${cur.title} · Top${TOP_N}` : '-'
+        updateTimeEl.textContent = `更新时间：${cur?.time || '-'}`
+      }
+
+      function render() {
+        renderPlatformSelect()
+        renderMeta()
+        renderList()
+        renderState()
+      }
+
+      function escapeHtml(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;')
+      }
+
+      /** 用于 href / data-url，避免 URL 中含 " & 等破坏 HTML */
+      function escapeAttr(str) {
+        return String(str || '')
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;')
+          .replace(/</g, '&lt;')
+      }
+
+      platformSelectEl.addEventListener('change', async () => {
+        const id = platformSelectEl.value
+        if (!id || id === state.current) return
+        state.current = id
+        render()
+        await fetchPlatform(id)
+      })
+
+      listEl.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return
+        const card = e.target.closest('.item')
+        if (!card) return
+        const url = card.getAttribute('data-url')
+        if (!url || url === '#') return
+        window.open(url, '_blank', 'noopener,noreferrer')
+      })
+
+      ;(async function init() {
+        render()
+        await fetchPlatform(state.current, true)
+      })()
+    </script>
   </body>
 </html>
+
